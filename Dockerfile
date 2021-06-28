@@ -26,9 +26,9 @@ RUN ln -sf /dev/stdout /var/log/apache2/access.log && \
 
 RUN chown apache:apache /var/www/html
 
-COPY src/config/apache2/httpd.conf /etc/apache2/httpd.conf
-COPY src/scripts/create_certificate.sh /opt/create_certificate.sh
-COPY src/scripts/server.sh /opt/server.sh
+COPY config/apache2/httpd.conf /etc/apache2/httpd.conf
+COPY scripts/create_certificate.sh /opt/create_certificate.sh
+COPY scripts/server.sh /opt/server.sh
 
 RUN chmod +x /opt/server.sh /opt/create_certificate.sh
 
