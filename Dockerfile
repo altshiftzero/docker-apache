@@ -3,6 +3,9 @@ FROM alpine:3.14
 EXPOSE 80/tcp
 EXPOSE 443/tcp
 
+HEALTHCHECK --interval=1m --timeout=10s --retries=3 \
+            CMD curl -f http://localhost/ || exit 1
+
 ENV SITEDOMAIN=localhost
 ENV SSL_SECURITY=SSL_HARD
 ENV SSL_STATUS=SSL_ENABLED
