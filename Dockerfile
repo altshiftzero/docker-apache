@@ -9,6 +9,8 @@ HEALTHCHECK --interval=5m --timeout=30s --retries=3 \
 ENV SITEDOMAIN=localhost \
     SSL_SECURITY=SSL_HARD \
     SSL_STATUS=SSL_ENABLED \
+    SSL_DIR=/etc/ssl1.1 \
+    SSL_DIR_ESCAPED="\/etc\/ssl1\.1" \
     TIMEZONE=Europe/Amsterdam
 
 RUN apk update && apk upgrade && \
@@ -24,12 +26,13 @@ COPY scripts/server.sh /opt/server.sh
 RUN ln -sf /dev/stdout /var/log/apache2/access.log && \
     ln -sf /dev/stderr /var/log/apache2/error.log && \
     rm -f /etc/apache2/conf.d/* && \
-    mkdir /etc/ssl/ca && mkdir /var/www/html && \
-    sed -i 's/.\/demoCA/\/etc\/ssl/g' /etc/ssl/openssl.cnf && \
-    sed -i 's/newcerts/certs/g' /etc/ssl/openssl.cnf && \
-    sed -i 's/cacert.pem/ca\/ca.crt/g' /etc/ssl/openssl.cnf && \
-    sed -i 's/private\/cakey.pem/ca\/ca.key/g' /etc/ssl/openssl.cnf && \
-    touch /etc/ssl/index.txt && \
+    mkdir ${SSL_DIR}/ca && mkdir /var/www/html && \
+    sed -i 's/.\/demoCA/'${SSL_DIR_ESCAPED}'/g' ${SSL_DIR}/openssl.cnf && \
+    sed -i 's/.\/etc\/ssl\//'${SSL_DIR_ESCAPED}'/g' ${SSL_DIR}/openssl.cnf && \
+    sed -i 's/newcerts/certs/g' ${SSL_DIR}/openssl.cnf && \
+    sed -i 's/cacert.pem/ca\/ca.crt/g' ${SSL_DIR}/openssl.cnf && \
+    sed -i 's/private\/cakey.pem/ca\/ca.key/g' ${SSL_DIR}/openssl.cnf && \
+    touch ${SSL_DIR}/index.txt && \
     chown apache:apache /var/www/html && \
     chmod +x /opt/server.sh /opt/create_certificate.sh
 
