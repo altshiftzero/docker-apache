@@ -23,6 +23,6 @@ if [[ ! -e "${SSL_DIR}/private/${DOMAIN}.key" && -e "${SSL_DIR}/ca/ca.crt" ]]; t
       -out ${SSL_DIR}/${DOMAIN}.csr \
       -addext "subjectAltName=DNS:${DOMAIN},DNS:www.${DOMAIN}${WILDCARD}" \
       -subj "/C=US/ST=NA/L=NA/O=Docker Container $(hostname)/OU=IT Department/CN="${DOMAIN}
-    openssl ca -batch -out ${SSL_DIR}/certs/${DOMAIN}.cer -infiles ${SSL_DIR}/${DOMAIN}.csr
+    openssl ca -batch -out /etc/ssl/certs/${DOMAIN}.cer -infiles ${SSL_DIR}/${DOMAIN}.csr
   fi
 fi
