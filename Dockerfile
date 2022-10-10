@@ -10,7 +10,7 @@ ENV SITEDOMAIN=localhost \
     SSL_SECURITY=SSL_HARD \
     SSL_STATUS=SSL_ENABLED \
     SSL_DIR=/etc/ssl \
-    SSL_DIR_ESCAPED="\/etc\/ssl1" \
+    SSL_DIR_ESCAPED="\/etc\/ssl" \
     TIMEZONE=Europe/Amsterdam
 
 RUN apk update && apk upgrade && \
@@ -28,7 +28,7 @@ RUN ln -sf /dev/stdout /var/log/apache2/access.log && \
     rm -f /etc/apache2/conf.d/* && \
     mkdir ${SSL_DIR}/ca && mkdir /var/www/html && \
     sed -i 's/.\/demoCA/'${SSL_DIR_ESCAPED}'/g' ${SSL_DIR}/openssl.cnf && \
-    sed -i 's/.\/etc\/ssl\//'${SSL_DIR_ESCAPED}'/g' ${SSL_DIR}/openssl.cnf && \
+    sed -i 's/\/etc\/ssl1/'${SSL_DIR_ESCAPED}'/g' ${SSL_DIR}/openssl.cnf && \
     sed -i 's/newcerts/certs/g' ${SSL_DIR}/openssl.cnf && \
     sed -i 's/cacert.pem/ca\/ca.crt/g' ${SSL_DIR}/openssl.cnf && \
     sed -i 's/private\/cakey.pem/ca\/ca.key/g' ${SSL_DIR}/openssl.cnf && \
