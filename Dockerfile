@@ -9,8 +9,8 @@ HEALTHCHECK --interval=5m --timeout=30s --retries=3 \
 ENV SITEDOMAIN=localhost \
     SSL_SECURITY=SSL_HARD \
     SSL_STATUS=SSL_ENABLED \
-    SSL_DIR=/etc/ssl1.1 \
-    SSL_DIR_ESCAPED="\/etc\/ssl1\.1" \
+    SSL_DIR=/etc/ssl \
+    SSL_DIR_ESCAPED="\/etc\/ssl1" \
     TIMEZONE=Europe/Amsterdam
 
 RUN apk update && apk upgrade && \
