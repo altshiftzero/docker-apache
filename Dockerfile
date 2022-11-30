@@ -15,7 +15,7 @@ ENV SITEDOMAIN=localhost \
 
 RUN apk update && apk upgrade && \
     apk add --no-cache apache2 apache2-http2 apache2-ssl \
-                       openssl openssl-dev openssh-keygen \
+                       openssl openssl-dev openssh openssh-keygen \
                        curl ca-certificates \
                        git gnupg
 
